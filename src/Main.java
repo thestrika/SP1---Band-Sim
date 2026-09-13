@@ -90,12 +90,39 @@ public class Main {
         if(fameLevel != 5){
             fameLevel += 1;
             xp = 0;
+            increaseMaxFans();
             System.out.println("==============================");
             System.out.println("Leveled up! Your new level is:");
             levelChecker();
+            System.out.println("Max fans limit is now: " + maxFans);
             System.out.println("==============================");
         }
     }
+
+    //MAX FANS INCREASER
+    void increaseMaxFans(){
+        switch (fameLevel){
+            case 1:
+                maxFans = 5000;
+                break;
+            case 2:
+                maxFans = 15000;
+                break;
+            case 3:
+                maxFans = 50000;
+                break;
+            case 4:
+                maxFans = 200000;
+                break;
+            case 5:
+                maxFans = 1000000000;
+                break;
+            default:
+                System.out.println("Error");
+                break;
+        }
+    }
+
 
     //LEVEL CHECKER
     void levelChecker(){
@@ -121,17 +148,72 @@ public class Main {
         }
     }
 
-    // RELEVANCE CHECK--------------------- MANGLER RETURN --------------------- note til mig selv: vender tilbage til senere
-    void isLosingRelevance(){
-
+    // RELEVANCE CHECK
+    boolean isLosingRelevance(){
+        System.out.println("=== STATUS CHECK ===");
+        if(fans < (maxFans * 0.75)){
+            System.out.println("WARNING: Losing relevance! Consider a comeback strategy");
+            return true;
+        }
+        else{
+            System.out.println("Healthy! Everything is running smoothly");
+            return false;
+        }
     }
 
 
-    // ACTIVITY CHECK --------------------- MANGLER RETURN --------------------- note til mig selv: vender tilbage til senere
-    void isActive(){
-
+    // ACTIVITY CHECK
+    boolean isActive(){
+        if(fans <= 0){
+            System.out.println("The band has broken up…");
+            return false;
+        }
+        else{
+            return true;
+        }
 
     }
+
+    // REPERTOIRE
+    void printRepertoire(){
+        int songCounter = 0;
+        System.out.println("=== REPERTOIRE ===");
+        for(int i = 0; i < repertoire.length; i++){
+            System.out.println("- " + repertoire[i]);
+            songCounter++;
+        }
+        System.out.println();
+        System.out.println("=== TOTAL SONGS ===");
+        System.out.println(songCounter);
+        System.out.println();
+    }
+
+
+    // GET STATUS --------------------- MANGLER RETURN --------------------- note til mig selv: vender tilbage til senere
+    void getStatusTitle(String status){
+
+    }
+
+    // RANDOM EVENT
+    void randomEvent(int eventType){
+        System.out.println("=== RANDOM EVENT ===");
+
+        if(eventType == 1){
+            fans += 500;
+            System.out.println("Amazing show in Ibiza!: +500 fans");
+            System.out.println("You now have: " + fans + " fans");
+        }
+        else if(eventType == 2){
+            System.out.println("Been sick all week. No progress");
+        }
+        else{
+            fans -= 100;
+            System.out.println("Scandal! Speakers disconnected for an entire show: -300 fans");
+            System.out.println("You now have: " + fans + " fans");
+        }
+    }
+
+
 
 
 
@@ -152,14 +234,6 @@ public class Main {
 
 
 
-
-
-
-        System.out.println("Repertoire: (4 songs)");
-        for(int i = 0; i < repertoire.length; i++){
-            System.out.println("- " + repertoire[i]);
-        }
-        System.out.println();
 
 
 
@@ -198,88 +272,6 @@ public class Main {
         System.out.println(" ");
 
          */
-
-
-
-        // BAND LOGIK
-
-        //STATUS CHECKS
-
-        System.out.println("=== STATUS CHECK ===");
-        if(fans < (maxFans * 0.75)){
-            System.out.println("WARNING: Losing relevance! Consider a comeback strategy");
-        }
-
-        if(fans <= 0){
-            System.out.println("The band has broken up…");
-        }
-        System.out.println();
-
-        System.out.println("=== MENTALITY ===");
-        switch(genre){
-            case 'R':
-                System.out.println("Rock 'n' Roll!");
-                break;
-            case 'E':
-                System.out.println("Aiming for Tomorrowland!");
-                break;
-            case 'H':
-                System.out.println("Making waves in the underground!");
-                break;
-            case 'P':
-                System.out.println("Waiting for the next radio hit!");
-                break;
-            default:
-                System.out.println("Error");
-                break;
-
-        }
-        System.out.println();
-
-
-
-
-        // REPERTOIRE
-        int songCounter = 0;
-        System.out.println("=== REPERTOIRE ===");
-        for(int i = 0; i < repertoire.length; i++){
-            System.out.println("- " + repertoire[i]);
-            songCounter++;
-        }
-        System.out.println();
-        System.out.println("=== TOTAL SONGS ===");
-        System.out.println(songCounter);
-        System.out.println();
-
-        // GIG SIMULATION
-        playGig(500, 420);
-
-
-        //RANDOM EVENT
-        System.out.println("=== RANDOM EVENT ===");
-        int eventType = 1;
-
-        if(eventType == 1){
-            fans += 500;
-            System.out.println("Amazing show in Ibiza!: +500 fans");
-            System.out.println("You now have: " + fans + " fans");
-        }
-        else if(eventType == 2){
-            System.out.println("Been sick all week. No progress");
-        }
-        else{
-            fans -= 100;
-            System.out.println("Scandal! Speakers disconnected for an entire show: -300 fans");
-            System.out.println("You now have: " + fans + " fans");
-        }
-
-
-
-
-
-
-
-
 
 
 
