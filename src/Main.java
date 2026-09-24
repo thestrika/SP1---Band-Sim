@@ -55,6 +55,7 @@ public class Main {
                         System.out.println("Enter amount of streams");
                         int singleStreams = myScanner.nextInt();
                         band1.releaseSingle(singleTitle, singleDuration, singleStreams);
+                        myScanner.nextLine();
                         break;
                     case 4:
                         System.out.println("Enter song title to remove");
@@ -69,9 +70,7 @@ public class Main {
             else{
                 System.out.println("Invalid input");
             }
-            System.out.println("Press enter to continue");
-            myScanner.nextLine();
-
+            waitForEnter();
         }
     }
 
@@ -150,6 +149,11 @@ public class Main {
     static void clearConsole(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public void waitForEnter(){
+        System.out.println("Press enter to continue");
+        myScanner.nextLine();
     }
 
 
