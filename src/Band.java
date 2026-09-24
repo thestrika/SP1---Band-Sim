@@ -11,6 +11,7 @@ public class Band {
     private boolean isActive;
     private char genre;
     private ArrayList<Song> songs;
+    private ArrayList<Venue> venues;
 
     public Band(String bandName, char genre){
         this.bandName = bandName;
@@ -22,6 +23,7 @@ public class Band {
         this.isActive = true;
         this.genre = genre;
         this.songs = new ArrayList<>();
+        this.venues = new ArrayList<>();
     }
 
     //Getters
@@ -223,6 +225,38 @@ public class Band {
             }
         }
         System.out.println("( -- ) Total songs in repertoire: " + songs.size());
+    }
+
+
+
+    // Gig metoder
+
+    public void playGig(String venueName){
+        for(Venue venue : venues){
+            if(venue != null){
+                if(venue.getName().equalsIgnoreCase(venueName)){
+                    int capacity = venue.getCapacity();
+                    int minCapacity = capacity / 2; // dividerer med 2 her fordi så jeg sikrer mig at der altid er min 50% attendance
+                    double payment = venue.getPayAmount();
+                    int attendance = (int) (Math.random() * (capacity - minCapacity));
+                    System.out.println("=== ( !! ) CONCERT SUMMARY ( !! ) ===");
+                        if(attendance >= capacity * 0.80){
+                            System.out.println("( ++ ) Attendance over 80%");
+                            gainFans(1000);
+                            earnMoney(payment);
+                        }
+                        else{
+                            System.out.println("( XX ) Bummer! Attendance under 80%");
+                            gainFans(200);
+                            earnMoney(payment);
+                        }
+                    System.out.println("=== ( XX ) END OF SUMMARY ( XX ) ===");
+                }
+                else {
+                    System.out.println("( XX ) No venue named " + venueName + " found");
+                }
+            }
+        }
     }
 
 
