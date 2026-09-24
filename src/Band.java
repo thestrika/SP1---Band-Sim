@@ -16,7 +16,7 @@ public class Band {
     public Band(String bandName, char genre){
         this.bandName = bandName;
         this.fans = 0;
-        this.maxFans = 0;
+        this.maxFans = 1000;
         this.fameLevel = 1;
         this.xp = 0;
         this.cash = 1000;
@@ -52,6 +52,10 @@ public class Band {
         return genre;
     }
 
+    public ArrayList<Venue> getVenues(){
+        return venues;
+    }
+
     //Metoder
     public void printBandProfile(){
         System.out.println("============ | " + bandName + " | ============");
@@ -78,7 +82,6 @@ public class Band {
     public void earnMoney(double amount){
         cash += amount;
         System.out.println("( ++ ) Earned " + amount + "$");
-        return;
     }
 
     public boolean spendMoney(double amount) {
@@ -109,11 +112,13 @@ public class Band {
             fameLevel += 1;
             xp = 0;
             increaseMaxFans();
+            System.out.println();
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             System.out.println("Leveled up! Your new level is:");
             levelChecker();
             System.out.println("Max fans limit is now: " + maxFans);
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+            System.out.println();
         }
     }
 
@@ -164,7 +169,7 @@ public class Band {
     }
 
     public boolean isLosingRelevance(){
-        System.out.println("=== STATUS CHECK ===");
+        System.out.println("=========== | RELEVANCE CHECK | ===========");
         if(fans < (maxFans * 0.75)){
             System.out.println("( XX ) WARNING: Losing relevance! Consider a comeback strategy");
             return true;
@@ -192,7 +197,7 @@ public class Band {
         if(cash >= 1000){
             songs.add(new Song(title, duration, streams));
             System.out.println();
-            System.out.println("( ++ ) A new single was released! ( ++ )");
+            System.out.println("======== | NEW MUSIC ALERT | ========");
             gainFans(1000);
             addXP(500);
             spendMoney(1000);
@@ -200,6 +205,7 @@ public class Band {
         else{
             System.out.println("( XX ) Not enough money to release a single");
         }
+        System.out.println();
 
     }
 
@@ -242,14 +248,14 @@ public class Band {
     }
 
     public void printVenues(){
-        System.out.println("=== ( !! ) VENUES ( !! ) ===");
+        System.out.println("=========== | VENUES | ===========");
         for(Venue venue : venues){
-            System.out.println("( -- ) " + venue.getName());
+            System.out.println("( -- ) " + venue);
         }
-        System.out.println("=== ( !! ) END OF LIST ( !! ) ===");
+        System.out.println("=========== | END OF LIST | ===========");
     }
 
-    public void playGig(String venueName){
+    public int playGig(String venueName){
         for(Venue venue : venues){
             if(venue != null){
                 if(venue.getName().equalsIgnoreCase(venueName)){
@@ -257,28 +263,28 @@ public class Band {
                     int minCapacity = capacity / 2; // dividerer med 2 her fordi så jeg sikrer mig at der altid er min 50% attendance
                     double payment = venue.getPayAmount();
                     int attendance = minCapacity + (int) (Math.random() * (capacity - minCapacity));
-                    System.out.println("=== ( !! ) CONCERT SUMMARY ( !! ) ===");
+                    System.out.println();
+                    System.out.println("=========== | " + bandName + " CONCERT SUMMARY | ===========");
                         if(attendance >= (capacity * 0.80)){
                             System.out.println("( ++ ) Attendance over 80%");
                             gainFans(1000);
                             earnMoney(payment);
+                            addXP(1000);
                         }
                         else{
                             System.out.println("( XX ) Bummer! Attendance under 80%");
-                            gainFans(200);
+                            loseFans(500);
                             earnMoney(payment);
                         }
-                    System.out.println("=== ( XX ) END OF SUMMARY ( XX ) ===");
+                    System.out.println("=========== | END OF SUMMARY | ===========");
+                    System.out.println();
+                    return attendance;
                 }
             }
             else {
                 System.out.println("( XX ) No venue named " + venueName + " found");
             }
         }
+        return 0;
     }
-
-
-
-
-
 }
