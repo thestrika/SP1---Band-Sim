@@ -54,7 +54,7 @@ public class Band {
 
     //Metoder
     public void printBandProfile(){
-        System.out.println("===" + bandName + "===");
+        System.out.println("============ | " + bandName + " | ============");
         System.out.println("Name: " + bandName);
         System.out.println("Genre: " + genre);
         System.out.println("Fame Level: " + fameLevel);
@@ -190,23 +190,22 @@ public class Band {
     //Sange metoder
     public void releaseSingle(String title, int duration, int streams){
         songs.add(new Song(title, duration, streams));
-        addXP(500);
+        System.out.println();
+        System.out.println("( ++ ) A new single was released! ( ++ )");
         gainFans(1000);
-        System.out.println("( ++ ) A new single was released!");
+        addXP(500);
     }
 
     public void removeSong(String songQuery){
-        for(Song song : songs){
-            if(song != null){
-                if(song.getTitle().equalsIgnoreCase(songQuery)){
-                    System.out.println(" ( !! ) " + song.getTitle() + " removed from repertoire");
-                    songs.remove(song);
-                }
-                else{
-                    System.out.println("( XX ) Found no songs named " + song.getTitle());
-                }
+        for(int i = 0; i < songs.size(); i++){
+            Song song = songs.get(i);
+            if(song.getTitle().equalsIgnoreCase(songQuery)){
+                System.out.println(" ( !! ) " + song.getTitle() + " removed from repertoire");
+                songs.remove(song);
+                return;
             }
         }
+        System.out.println("( XX ) Found no songs named " + songQuery);
     }
     public boolean hasSong(String songQuery){
         for(Song song : songs){
@@ -229,7 +228,19 @@ public class Band {
 
 
 
-    // Gig metoder
+    // Gig og venue metoder
+
+    public void initiateVenue(Venue venue){
+        venues.add(venue);
+    }
+
+    public void printVenues(){
+        System.out.println("=== ( !! ) VENUES ( !! ) ===");
+        for(Venue venue : venues){
+            System.out.println("( -- ) " + venue.getName());
+        }
+        System.out.println("=== ( !! ) END OF LIST ( !! ) ===");
+    }
 
     public void playGig(String venueName){
         for(Venue venue : venues){
@@ -238,9 +249,9 @@ public class Band {
                     int capacity = venue.getCapacity();
                     int minCapacity = capacity / 2; // dividerer med 2 her fordi så jeg sikrer mig at der altid er min 50% attendance
                     double payment = venue.getPayAmount();
-                    int attendance = (int) (Math.random() * (capacity - minCapacity));
+                    int attendance = minCapacity + (int) (Math.random() * (capacity - minCapacity));
                     System.out.println("=== ( !! ) CONCERT SUMMARY ( !! ) ===");
-                        if(attendance >= capacity * 0.80){
+                        if(attendance >= (capacity * 0.80)){
                             System.out.println("( ++ ) Attendance over 80%");
                             gainFans(1000);
                             earnMoney(payment);
@@ -252,9 +263,9 @@ public class Band {
                         }
                     System.out.println("=== ( XX ) END OF SUMMARY ( XX ) ===");
                 }
-                else {
-                    System.out.println("( XX ) No venue named " + venueName + " found");
-                }
+            }
+            else {
+                System.out.println("( XX ) No venue named " + venueName + " found");
             }
         }
     }
