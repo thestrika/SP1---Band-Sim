@@ -28,7 +28,7 @@ public class Main {
             int menuInput = myScanner.nextInt();
             myScanner.nextLine();
 
-            if(menuInput >= 1 && menuInput <= 6){
+            if(menuInput >= 1 && menuInput <= 8){
                 switch (menuInput){
                     case 1:
                         band1.printBandProfile();
@@ -58,10 +58,19 @@ public class Main {
                         band1.printRepertoire();
                         break;
                     case 6:
+                        band1.isLosingRelevance();
+                        break;
+                    case 7:
                         createBand();
                         opponent = new Band(name, genre);
                         assignVenues(opponent);
                         battle();
+                        myScanner.nextLine();
+                        break;
+                    case 8:
+                        System.out.println("Enter a number from 1-3");
+                        int eventType = myScanner.nextInt();
+                        randomEvent(eventType);
                         myScanner.nextLine();
                         break;
                 }
@@ -83,8 +92,10 @@ public class Main {
         System.out.println("3) Release single");
         System.out.println("4) Remove song");
         System.out.println("5) Print repertoire");
+        System.out.println("6) Relevance check");
         System.out.println("============ | MINIGAMES | ============");
-        System.out.println("6) Battle of the bands");
+        System.out.println("7) Battle of the bands");
+        System.out.println("8) Random event");
         System.out.println("============ | CHOOSE | ============");
     }
 
@@ -137,6 +148,23 @@ public class Main {
         }
     }
 
+    public void randomEvent(int eventType){
+        if(eventType == 1){
+            System.out.println("Great review! +500 fans");
+            band1.gainFans(500);
+        }
+        else if(eventType == 2){
+            System.out.println("Quiet week. Nothing happens.");
+        }
+        else if(eventType == 3){
+            System.out.println("Scandal! -300 fans");
+            band1.loseFans(300);
+        }
+        else{
+            System.out.println("Invalid input");
+        }
+    }
+
     public void battle(){
         ArrayList<Venue> bandVenues = band1.getVenues();
         ArrayList<Venue> opponentVenues = opponent.getVenues();
@@ -147,7 +175,7 @@ public class Main {
             System.out.println(battleAsci());
 
             int bandVenueIndex = (int) (Math.random() * bandVenues.size());
-            int opponentVenueIndex = (int) (Math.random() * bandVenues.size());
+            int opponentVenueIndex = (int) (Math.random() * opponentVenues.size());
 
             String mainChosenVenue = bandVenues.get(bandVenueIndex).getName();
             String opponentChosenVenue = opponentVenues.get(opponentVenueIndex).getName();
@@ -186,6 +214,7 @@ public class Main {
     }
 
     public void displayAsci(){
+        System.out.println();
         System.out.println(":::::::::      :::     ::::    ::: :::::::::        :::::::: ::::::::::: ::::    ::::  \n" +
                 ":+:    :+:   :+: :+:   :+:+:   :+: :+:    :+:      :+:    :+:    :+:     +:+:+: :+:+:+ \n" +
                 "+:+    +:+  +:+   +:+  :+:+:+  +:+ +:+    +:+      +:+           +:+     +:+ +:+:+ +:+ \n" +

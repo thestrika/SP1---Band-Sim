@@ -15,8 +15,8 @@ public class Band {
 
     public Band(String bandName, char genre){
         this.bandName = bandName;
-        this.fans = 0;
-        this.maxFans = 1000;
+        this.fans = 1000;
+        this.maxFans = 5000;
         this.fameLevel = 1;
         this.xp = 0;
         this.cash = 1000;
@@ -63,20 +63,39 @@ public class Band {
         System.out.println("Genre: " + genre);
         System.out.println("Fame Level: " + fameLevel);
         System.out.println("Fans: " + fans + "/" + maxFans);
+        System.out.println("Fan percentage: " + getFanPercentage() + "%");
         System.out.println("XP: " + xp);
         System.out.println("Money: " + cash);
-        System.out.println("Active: " + isActive);
+        System.out.println("Active: " + isActive());
         System.out.println();
     }
 
     public void gainFans(int fansToAdd){
         fans += fansToAdd;
         System.out.println("( ++ ) Gained " + fansToAdd + " fans");
+        if(fans > maxFans){
+            fans = maxFans;
+        }
+        if(fans > 0){
+            isActive = true;
+        }
+    }
+
+    public double getFanPercentage(){
+        return (((double) fans / maxFans) * 100);
     }
 
     public void loseFans(int fansToRemove){
         fans -= fansToRemove;
+
+        if(fans <= 0){
+            fans = 0;
+            isActive = false;
+            System.out.println("( XX ) The band has broken up…");
+        }
+
         System.out.println("( -- ) Lost " + fansToRemove + " fans");
+        System.out.println();
     }
 
     public void earnMoney(double amount){
@@ -115,7 +134,7 @@ public class Band {
             System.out.println();
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             System.out.println("Leveled up! Your new level is:");
-            levelChecker();
+            System.out.println(getStatusTitle());
             System.out.println("Max fans limit is now: " + maxFans);
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             System.out.println();
@@ -137,7 +156,7 @@ public class Band {
                 maxFans = 200000;
                 break;
             case 5:
-                maxFans = 1000000000;
+                maxFans = 1000000;
                 break;
             default:
                 System.out.println("( XX ) Error");
@@ -145,32 +164,26 @@ public class Band {
         }
     }
 
-    public void levelChecker(){
+    public String getStatusTitle(){
         switch(fameLevel){
             case 1:
-                System.out.println("( || ) Level 1: Unknown - Producing music in your bedroom");
-                break;
+                return "( || ) Level 1: Unknown - Producing music in your bedroom";
             case 2:
-                System.out.println("( || ) Level 2: Local DJ - Playing small club gigs");
-                break;
+                return "( || ) Level 2: Local DJ - Playing small club gigs";
             case 3:
-                System.out.println("( || ) Level 3: Rising star - Festival invitations coming in");
-                break;
+                return "( || ) Level 3: Rising star - Festival invitations coming in";
             case 4:
-                System.out.println("( || ) Level 4: Mainstream - Tomorrowland is calling");
-                break;
+                return "( || ) Level 4: Mainstream - Tomorrowland is calling";
             case 5:
-                System.out.println("( || ) Level 5: Most respected DJ - Even David Guetta looks up to you");
-                break;
+                return "( || ) Level 5: Most respected DJ - Even David Guetta looks up to you";
             default:
-                System.out.println("( XX ) Error");
-                break;
+                return "( XX ) Error";
         }
     }
 
     public boolean isLosingRelevance(){
         System.out.println("=========== | RELEVANCE CHECK | ===========");
-        if(fans < (maxFans * 0.75)){
+        if(fans < (maxFans * 0.25)){
             System.out.println("( XX ) WARNING: Losing relevance! Consider a comeback strategy");
             return true;
         }
@@ -181,13 +194,7 @@ public class Band {
     }
 
     public boolean isActive(){
-        if(fans <= 0){
-            System.out.println("( XX ) The band has broken up…");
-            return false;
-        }
-        else{
-            return true;
-        }
+        return isActive;
     }
 
 
@@ -255,6 +262,7 @@ public class Band {
         System.out.println("=========== | END OF LIST | ===========");
     }
 
+
     public int playGig(String venueName){
         for(Venue venue : venues){
             if(venue != null){
@@ -281,10 +289,8 @@ public class Band {
                     return attendance;
                 }
             }
-            else {
-                System.out.println("( XX ) No venue named " + venueName + " found");
-            }
         }
+        System.out.println("( XX ) No venue named " + venueName + " found");
         return 0;
     }
 }
