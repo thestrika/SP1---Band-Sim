@@ -13,6 +13,7 @@ public class Main {
     String[] repertoire = {"REACT", "Low", "Sweet Dreams", "Freestyler"};
 
     //METHODS
+    /*
     void printBandProfile(){
         System.out.println("=== BAND PROFILE: TALVO ===");
         System.out.println("Name: " + bandName);
@@ -24,6 +25,8 @@ public class Main {
         System.out.println("Active: " + isActive);
         System.out.println();
     }
+
+     */
 
     // GIG SIMULATION
     void playGig(int venueCapacity, int attendance){
@@ -45,148 +48,31 @@ public class Main {
     }
 
     //GAIN FANS
-    void gainFans(int fansToAdd){
-        fans += fansToAdd;
-        System.out.println("Gained " + fansToAdd + " fans. New total: " + fans);
-    }
+
 
     //LOSE FANS
-    void loseFans(int fansToRemove){
-        fans -= fansToRemove;
-        System.out.println("Lost " + fansToRemove + "fans. New total: " + fans);
-    }
+
 
     //EARN MONEY
-    void earnMoney(double amount){
-        cash += amount;
-        System.out.println("Earned: " + amount + "$. New cash balance: " + cash);
-        return;
-    }
-
-    //SPEND MONEY --------------------- MANGLER RETURN --------------------- note til mig selv: vender tilbage til senere
-    void spendMoney(double amount) {
-        if (amount <= cash) {
-            cash -= amount;
-        } else {
-            System.out.println("Insufficient balance");
-        }
-    }
-
-    // ADD XP
-    void addXP(int amount){
-        xp += amount;
-        System.out.println(amount + "XP gained. Checking for level up...");
-        if(xp > (2000 * fameLevel)){
-            System.out.println("Ready to level up!");
-            levelUp();
-        }
-        else{
-            System.out.println("Not ready for level up...");
-        }
-    }
-
-    // LEVEL UP
-    void levelUp(){
-        if(fameLevel != 5){
-            fameLevel += 1;
-            xp = 0;
-            increaseMaxFans();
-            System.out.println("==============================");
-            System.out.println("Leveled up! Your new level is:");
-            levelChecker();
-            System.out.println("Max fans limit is now: " + maxFans);
-            System.out.println("==============================");
-        }
-    }
-
-    //MAX FANS INCREASER
-    void increaseMaxFans(){
-        switch (fameLevel){
-            case 1:
-                maxFans = 5000;
-                break;
-            case 2:
-                maxFans = 15000;
-                break;
-            case 3:
-                maxFans = 50000;
-                break;
-            case 4:
-                maxFans = 200000;
-                break;
-            case 5:
-                maxFans = 1000000000;
-                break;
-            default:
-                System.out.println("Error");
-                break;
-        }
-    }
 
 
-    //LEVEL CHECKER
-    void levelChecker(){
-        switch(fameLevel){
-            case 1:
-                System.out.println("Level 1: Unknown - Producing music in your bedroom");
-                break;
-            case 2:
-                System.out.println("Level 2: Local DJ - Playing small club gigs");
-                break;
-            case 3:
-                System.out.println("Level 3: Rising star - Festival invitations coming in");
-                break;
-            case 4:
-                System.out.println("Level 4: Mainstream - Tomorrowland is calling");
-                break;
-            case 5:
-                System.out.println("Level 5: Most respected DJ - Even David Guetta looks up to you");
-                break;
-            default:
-                System.out.println("Error");
-                break;
-        }
-    }
+    //SPEND MONEY
+
+
+
+
+
+
 
     // RELEVANCE CHECK
-    boolean isLosingRelevance(){
-        System.out.println("=== STATUS CHECK ===");
-        if(fans < (maxFans * 0.75)){
-            System.out.println("WARNING: Losing relevance! Consider a comeback strategy");
-            return true;
-        }
-        else{
-            System.out.println("Healthy! Everything is running smoothly");
-            return false;
-        }
-    }
+
 
 
     // ACTIVITY CHECK
-    boolean isActive(){
-        if(fans <= 0){
-            System.out.println("The band has broken up…");
-            return false;
-        }
-        else{
-            return true;
-        }
 
-    }
 
     // REPERTOIRE
-    void printRepertoire(){
-        int songCounter = 0;
-        System.out.println("=== REPERTOIRE ===");
-        for(int i = 0; i < repertoire.length; i++){
-            System.out.println("- " + repertoire[i]);
-            songCounter++;
-        }
-        System.out.println();
-        System.out.println("=== TOTAL SONGS ===");
-        System.out.println(songCounter);
-        System.out.println();
-    }
+
 
 
     // GET STATUS --------------------- MANGLER RETURN --------------------- note til mig selv: vender tilbage til senere
@@ -230,7 +116,11 @@ public class Main {
 
 
 
-        printBandProfile();
+
+
+
+
+
 
 
 
