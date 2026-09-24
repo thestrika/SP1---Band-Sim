@@ -189,11 +189,18 @@ public class Band {
 
     //Sange metoder
     public void releaseSingle(String title, int duration, int streams){
-        songs.add(new Song(title, duration, streams));
-        System.out.println();
-        System.out.println("( ++ ) A new single was released! ( ++ )");
-        gainFans(1000);
-        addXP(500);
+        if(cash >= 1000){
+            songs.add(new Song(title, duration, streams));
+            System.out.println();
+            System.out.println("( ++ ) A new single was released! ( ++ )");
+            gainFans(1000);
+            addXP(500);
+            spendMoney(1000);
+        }
+        else{
+            System.out.println("( XX ) Not enough money to release a single");
+        }
+
     }
 
     public void removeSong(String songQuery){

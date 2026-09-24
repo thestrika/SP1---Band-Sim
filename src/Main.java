@@ -27,6 +27,7 @@ public class Main {
         }
 
         Band band1 = new Band(name, genre);
+        assignVenues(band1);
 
         while(running){
             clearConsole();
@@ -41,7 +42,10 @@ public class Main {
                         band1.printBandProfile();
                         break;
                     case 2:
-                        //band1.playGig();
+                        band1.printVenues();
+                        System.out.println("Pick a stage:");
+                        String venue = myScanner.nextLine();
+                        band1.playGig(venue);
                         break;
                     case 3:
                         System.out.println("Enter song name:");
@@ -84,18 +88,39 @@ public class Main {
         System.out.println("============ | CHOOSE | ============");
     }
 
-    public void assignVenues(){
+    public void assignVenues(Band band){
         switch(genre){
             case 'R':
+                Venue smallStage = new Venue("Small stage", 1000, 2000);
+                Venue mediumStage = new Venue("Medium stage", 5000, 1000);
+                Venue arena = new Venue("Arena", 20000, 4000);
+                band.initiateVenue(smallStage);
+                band.initiateVenue(mediumStage);
+                band.initiateVenue(arena);
                 break;
             case 'E':
                 Venue tomorrowland = new Venue("Tomorrowland", 10000, 2000);
                 Venue edc = new Venue("EDC", 5000, 1000);
                 Venue defqon = new Venue("Defqon", 20000, 4000);
+                band.initiateVenue(tomorrowland);
+                band.initiateVenue(edc);
+                band.initiateVenue(defqon);
                 break;
             case 'H':
+                Venue underground = new Venue("Underground", 1000, 2000);
+                Venue rapBattle = new Venue("Rap battle", 5000, 1000);
+                Venue stadium = new Venue("Stadium", 20000, 4000);
+                band.initiateVenue(underground);
+                band.initiateVenue(rapBattle);
+                band.initiateVenue(stadium);
                 break;
             case 'P':
+                Venue localBar = new Venue("Local bar", 1000, 2000);
+                Venue festival = new Venue("Festival", 5000, 1000);
+                Venue superStadium = new Venue("Super stadium", 20000, 4000);
+                band.initiateVenue(localBar);
+                band.initiateVenue(festival);
+                band.initiateVenue(superStadium);
                 break;
         }
     }
